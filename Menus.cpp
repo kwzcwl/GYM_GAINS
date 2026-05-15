@@ -8,6 +8,8 @@
 
 using namespace std;
 
+vector<User> users;
+
 string getHiddenInput(string prompt)
 {
 	cout<<endl<<prompt;
@@ -35,6 +37,25 @@ string getHiddenInput(string prompt)
 
     return input;
 
+}
+
+User* signin()
+{
+	string inUsername, inPasswd;
+    cout << "Username: ";
+    getline(cin, inUsername);
+    
+    inPasswd = getHiddenInput("Password: ");
+
+    for (auto& u : users)
+	{
+        if (u.username == inUsername && u.checkPassword(inPasswd))
+		{
+            return &u;
+        }
+    }
+
+    return nullptr;
 }
 
 int getSafeIntInput(string prompt)
@@ -66,11 +87,11 @@ void workout_menu(Workout& w,User& user)
 	switch(getSafeIntInput("[0] - Add Excercise\t[1] - Add Set\t[2] - Finish Workout\t:\t"))
 	{
 		case 0:
-			w.addExcercise(w,user);		//
+			w.addExcercise(w,user);
 			break;
 
 		case 1:
-			w.addSet(w,user);		//
+			w.addSet(w,user);
 			break;
 
 		case 2:
@@ -91,20 +112,23 @@ void exit_program()
 
 void user_menu(User& user)
 {
-	switch(getSafeIntInput("[0] - Back to main menu\t[1] - Add Workout\t[2] - Check old workouts\t:\t"))
+	switch(getSafeIntInput("[0] - Add Workout\t[1] - Check workout history\t[2] - Check Progress\t[3] - Sign out\t:\t"))
 	{
 		case 0:
-			main_menu();
-			break;
-
-		case 1:
 			user.addWorkout(user);
 			break;
 
-		case 2:
+		case 1:
 			user.displayWorkouts();
 			user_menu(user);
 			break;
+
+		case 2:
+			cout<<"not yet implemented";
+			break;
+
+		case 3:
+			main_menu();
 
 		default:
 			user_menu(user);
@@ -150,12 +174,25 @@ void main_menu()
 	switch(getSafeIntInput("[0] - Sign in\t[1] - Sign up\t[2] - Exit app\t:\t"))
 	{
 		case 0:
-			//sign in menu
-			break;
+		{
+			User* user = signin();
 
+			if (user != nullptr)
+			{
+				cout << "Login successful! Welcome " << user->name << endl;
+				user_menu(*user); 
+			}
+			else
+			{
+				cout << "Invalid username or password." << endl;
+				main_menu();
+			}
+			break;
+		}
 		case 1:
 		{
 			User new_user = signup();
+			users.push_back(new_user);
 			user_menu(new_user);
 			break;
 		}

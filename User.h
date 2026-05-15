@@ -19,4 +19,5 @@ struct User
 		User(string n,string sn,string passwd,string un = " ");
 		void addWorkout(User& user);
         void displayWorkouts();
+        bool checkPassword(string inPasswd);
 };

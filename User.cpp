@@ -25,6 +25,7 @@ string getDate()
 	return ss.str();
 }
 
+
 User::User(string n,string sn,string passwd,string un)
 {
 	name = n;
@@ -61,4 +62,9 @@ void User::displayWorkouts()
 	{
 		cout<<i<<"\t-\t"<<workouts[i].name<<"\t"<<workouts[i].date<<endl;
 	}
+}
+
+bool User::checkPassword(string inPasswd)
+{
+	return inPasswd == password;
 }
