@@ -1,11 +1,29 @@
 #include "User.h"
 #include "Menus.h"
 #include <iostream>
+#include <chrono>
+#include <iomanip>
+#include <sstream>
+#include <ctime>
+#include<ranges>
 
 using namespace std;
 
 
+string getDate()
+{
+	auto now = chrono::system_clock::now();
 
+	time_t currentTime = chrono::system_clock::to_time_t(now);
+
+	tm* localTime = localtime(&currentTime);
+
+	stringstream ss;
+
+	ss << put_time(localTime, "%d.%m.%Y");
+
+	return ss.str();
+}
 
 User::User(string n,string sn,string passwd,string un)
 {
@@ -26,12 +44,21 @@ void User::addWorkout(User& user)
 {
 	cout<<endl<<"Adding Workout, enter workout name:\t";
 	string wname;
-	cin.ignore();
 	getline(cin,wname);
 
-	workouts.push_back(Workout(wname,"12.05.2025"));
+	workouts.push_back(Workout(wname,getDate()));
 
 	Workout& w = workouts.back();
 	
 	workout_menu(w,user);
+}
+
+void User::displayWorkouts()
+{
+	cout<<endl<<"\033[2J\033[1;1H";
+
+	for (size_t i = 0; i < workouts.size(); i++)
+	{
+		cout<<i<<"\t-\t"<<workouts[i].name<<"\t"<<workouts[i].date<<endl;
+	}
 }

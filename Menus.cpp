@@ -2,8 +2,32 @@
 #include "User.h"
 #include "Workout.h"
 #include <iostream>
+#include <string>
+#include <stdexcept>
 
 using namespace std;
+
+int getSafeIntInput(string prompt)
+{
+	string userInput;
+	cout<<prompt;
+
+	getline(cin,userInput);
+
+	try
+	{
+		return stoi(userInput);
+	}
+	catch (const invalid_argument& e)
+	{
+		return -1;
+	}
+	catch (const out_of_range& e)
+	{
+		return -2;
+	}
+}
+
 
 void workout_menu(Workout& w,User& user)
 {
@@ -13,13 +37,8 @@ void workout_menu(Workout& w,User& user)
 	cout<<endl<<"1 - Add Excercise"<<endl;
 	cout<<endl<<"2 - Add Set"<<endl;
 	cout<<endl<<"3 - Finish Workout"<<endl;
-	cout<<endl<<"[1/2/3]:\t";
 
-	int user_input;
-
-	cin>>user_input;
-
-	switch(user_input)
+	switch(getSafeIntInput("[1/2/3]:\t"))
 	{
 		case 1:
 			w.addExcercise(w,user);		//
@@ -50,13 +69,9 @@ void user_menu(User& user)
 	cout<<endl<<"0 - Back to main menu"<<endl;
 	cout<<endl<<"1 - Add Workout"<<endl;
 	cout<<endl<<"2 - Check old workouts"<<endl;
-	cout<<endl<<"[0/1/2]:\t";
 
-	int user_input;
 
-	cin>>user_input;
-
-	switch(user_input)
+	switch(getSafeIntInput("[0/1/2]:\t"))
 	{
 		case 0:
 			main_menu();
@@ -67,7 +82,7 @@ void user_menu(User& user)
 			break;
 
 		case 2:
-			cout<<"comming soon";
+			user.displayWorkouts();
 			user_menu(user);
 			break;
 
@@ -81,7 +96,7 @@ void main_menu()
 {
 	cout<<endl<<"[M]-Menu\t[X]-Exit\t";
 	string user_input;
-	cin>>user_input;
+	getline(cin,user_input);
 	if(user_input=="M")
 	{
 		//user_menu();
