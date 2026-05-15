@@ -4,8 +4,38 @@
 #include <iostream>
 #include <string>
 #include <stdexcept>
+#include <conio.h>
 
 using namespace std;
+
+string getHiddenInput(string prompt)
+{
+	cout<<endl<<prompt;
+
+	string input = "";
+	char ch = ' ';
+
+	while ((ch = _getch()) != '\r')
+	{
+        if (ch == '\b')
+		{
+            if (!input.empty())
+			{
+                input.pop_back();
+                cout << "\b \b"; 
+            }
+        } 
+		else
+		{
+            input += ch;
+            cout << '*';
+        }
+    }
+    cout<<endl;
+
+    return input;
+
+}
 
 int getSafeIntInput(string prompt)
 {
@@ -33,22 +63,17 @@ void workout_menu(Workout& w,User& user)
 {
 	w.printWorkout();
 
-
-	cout<<endl<<"1 - Add Excercise"<<endl;
-	cout<<endl<<"2 - Add Set"<<endl;
-	cout<<endl<<"3 - Finish Workout"<<endl;
-
-	switch(getSafeIntInput("[1/2/3]:\t"))
+	switch(getSafeIntInput("[0] - Add Excercise\t[1] - Add Set\t[2] - Finish Workout\t:\t"))
 	{
-		case 1:
+		case 0:
 			w.addExcercise(w,user);		//
 			break;
 
-		case 2:
+		case 1:
 			w.addSet(w,user);		//
 			break;
 
-		case 3:
+		case 2:
 			user_menu(user);
 			break;
 
@@ -66,12 +91,7 @@ void exit_program()
 
 void user_menu(User& user)
 {
-	cout<<endl<<"0 - Back to main menu"<<endl;
-	cout<<endl<<"1 - Add Workout"<<endl;
-	cout<<endl<<"2 - Check old workouts"<<endl;
-
-
-	switch(getSafeIntInput("[0/1/2]:\t"))
+	switch(getSafeIntInput("[0] - Back to main menu\t[1] - Add Workout\t[2] - Check old workouts\t:\t"))
 	{
 		case 0:
 			main_menu();
@@ -92,24 +112,59 @@ void user_menu(User& user)
 	}
 }
 
+User signup()
+{
+	cout<<endl<<"Name:\t";
+	string name;
+	getline(cin,name);
+
+	cout<<endl<<"Surname:\t";
+	string surname;
+	getline(cin,surname);
+
+	cout<<endl<<"Username:\t";
+	string username;
+	getline(cin,username);
+
+	string password1 = getHiddenInput("Password:\t");
+	string password2 = getHiddenInput("Confirm password:\t");
+
+	while (password1 != password2)
+	{
+		cout<<endl<<"Passwords do not match!";
+
+		string password1 = getHiddenInput("Password:\t");
+		string password2 = getHiddenInput("Confirm password:\t");
+	}
+
+	cout<<endl<<"User succesfully added!"<<endl<<endl;
+
+	User user(name,surname,password1,username);
+
+	return user;
+}
+
 void main_menu()
 {
-	cout<<endl<<"[M]-Menu\t[X]-Exit\t";
-	string user_input;
-	getline(cin,user_input);
-	if(user_input=="M")
+
+	switch(getSafeIntInput("[0] - Sign in\t[1] - Sign up\t[2] - Exit app\t:\t"))
 	{
-		//user_menu();
-	}
-	else
-	{
-		if(user_input=="X")
+		case 0:
+			//sign in menu
+			break;
+
+		case 1:
 		{
+			User new_user = signup();
+			user_menu(new_user);
+			break;
+		}
+		case 2:
 			exit_program();
-		}
-		else
-		{
+			break;
+
+		default:
 			main_menu();
-		}
+			break;
 	}
 }

@@ -18,7 +18,7 @@ int main()
 {
 	User myuser("Mokry","Marek","robmiloda1234");
 
-	user_menu(myuser);
+	main_menu();
 
 	/*myWorkout.addExcercise();
 	myWorkout.printWorkout();
