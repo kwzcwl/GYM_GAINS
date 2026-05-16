@@ -13,13 +13,29 @@ Helps tracking gym progress through workouts saving and progress analysis.
 ## Description
 Application contain menu where user can create an account. 
 After logging in one can create new session in which exercises, sets and weight can be added. 
-Saving those session and keep track of progress by being able to open them.
+Saving those session and keeping track of progress by being able to open them.
+
+## Current Features
+* User Sign up and Sign in
+* Creating workouts, adding exercises and sets
+* Viewign workout history
+* Saving data upon exit and loading upon opening the app
+
+## Planned Features
+* Viewing detailed workout summary after complietion
+* Analysing gym progress
+* Removing workouts, excercises and sets
+* Edditing sets
 
 ## How to run
 
 Compile:
 ```bash
 g++ *.cpp -o gym_app.exe
+```
+
+Run:
+```bash
 gym_app.exe
 ```
 
@@ -28,4 +44,8 @@ gym_app.exe
 ![ScreenShot](/screenshots/example.png)
 
 
+## Authors
+* Konrad Wołczański-Zub (1)
+* Mateusz Marczuk (1)
 
+(1) - AGH, Mechatronic Engineering
