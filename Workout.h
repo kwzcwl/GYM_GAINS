@@ -12,12 +12,13 @@ struct Workout
 {
     public:
 
-		map<int,Excercise> excercises;
+		map<int,Excercise*> excercises;
         string name;
         string date;
         string duration;
 
     	Workout(string n,string d);
+		~Workout();
 		
 		void addExcercise(Workout& w, User& u);
 		void printWorkout();

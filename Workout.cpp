@@ -12,6 +12,15 @@ Workout::Workout(string n,string d)
 	date = d;
 }
 
+Workout::~Workout()
+{
+	for (auto& e : excercises)
+    {
+        delete e.second;
+    }
+    excercises.clear();
+}
+
 void Workout::addExcercise(Workout& w, User& u)
 {
 	int id = 1;
@@ -29,9 +38,7 @@ void Workout::addExcercise(Workout& w, User& u)
 
 	string name = getSafeInput<string>("Enter the name of excercise: ");
 	
-	excercises.insert({id,Excercise(name)});
-
-	workout_menu(w,u);
+	excercises[id] = new Excercise(name);
 }
 
 void Workout::printWorkout()
@@ -42,7 +49,7 @@ void Workout::printWorkout()
 	cout<<"============================================"<<endl;
 	for(auto& ex : excercises)
 	{
-		ex.second.printExcercise();
+		ex.second->printExcercise();
 	}
 }
 
@@ -50,7 +57,7 @@ void Workout::addSet(Workout& w, User& u)
 {
 	for(auto& ex:excercises)
 	{
-		cout<<ex.first<<"\t-\t"<<ex.second.name<<endl;
+		cout<<ex.first<<"\t-\t"<<ex.second->name<<endl;
 	}
 
 	int input = getSafeInput<int>("For which excercise do you want to add the set?\t");
@@ -59,8 +66,7 @@ void Workout::addSet(Workout& w, User& u)
 	{
 		if(ex.first == input)
 		{
-			ex.second.addSet();
-			workout_menu(w,u);
+			ex.second->addSet();
 			break;
 		}
 	}

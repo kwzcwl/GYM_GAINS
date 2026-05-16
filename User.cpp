@@ -42,19 +42,24 @@ User::User(string n,string sn,string passwd,string un)
 	}
 }
 
-void User::addWorkout(User& user)
+User::~User()
 {
-	/*cout<<endl<<"Adding Workout, enter workout name:\t";
-	string wname;
-	getline(cin,wname);*/
+	for(auto& w : workouts)
+	{
+		delete w;
+	}
+	workouts.clear();
+}
 
+void User::addWorkout(Database& db)
+{
 	string wname = getSafeInput<string>("Adding Workout, enter workout name:\t");
 
-	workouts.push_back(Workout(wname,getDate()));
+	workouts.push_back(new Workout(wname,getDate()));
 
-	Workout& w = workouts.back();
+	Workout& w = *workouts.back();
 	
-	workout_menu(w,user);
+	workout_menu(w,*this,db);
 }
 
 void User::displayWorkouts()
@@ -63,7 +68,7 @@ void User::displayWorkouts()
 
 	for (size_t i = 0; i < workouts.size(); i++)
 	{
-		cout<<i<<"\t-\t"<<workouts[i].name<<"\t"<<workouts[i].date<<endl;
+		cout<<i<<"\t-\t"<<workouts[i]->name<<"\t"<<workouts[i]->date<<endl;
 	}
 }
 

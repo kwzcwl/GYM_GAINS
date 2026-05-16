@@ -10,26 +10,16 @@
 #include "Set.h"
 #include "Workout.h"
 #include "User.h"
+#include "Database.h"
 
 using namespace std;
 
 
 int main()
 {
-	User myuser("Mokry","Marek","robmiloda1234");
+	Database My_Database("Data.txt");
 
-	main_menu();
-
-	/*myWorkout.addExcercise();
-	myWorkout.printWorkout();
-	myWorkout.addSet();
-	myWorkout.printWorkout();
-	myWorkout.addSet();
-	myWorkout.printWorkout();
-	myWorkout.addExcercise();
-	myWorkout.printWorkout();
-	myWorkout.addSet();
-	myWorkout.printWorkout();*/
+	main_menu(My_Database);
 	
 	return 0;	
 }

@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include "Database.h"
 
 
 struct User;
@@ -9,7 +10,7 @@ using namespace std;
 
 int getSafeIntInput(string prompt);
 
-void workout_menu(Workout& w,User& user);
+void workout_menu(Workout& w,User& user,Database& db);
 void exit_program();
-void user_menu(User& user);
-void main_menu();
+void user_menu(User& user,Database& db);
+void main_menu(Database& db);
