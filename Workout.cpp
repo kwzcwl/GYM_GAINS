@@ -33,6 +33,37 @@ void Workout::save(ofstream& ofs)
     }
 }
 
+
+Workout* Workout::load(std::ifstream& ifs)
+{
+    std::string wName, wDate;
+    if (!std::getline(ifs, wName) || !std::getline(ifs, wDate))
+	{
+        return nullptr;
+    }
+
+    Workout* newWorkout = new Workout(wName, wDate);
+    
+    size_t exerciseCount = 0;
+    ifs >> exerciseCount;
+    ifs.ignore();
+
+    for (size_t i = 0; i < exerciseCount; ++i)
+	{
+        int mapKey = 0;
+        ifs >> mapKey;
+        ifs.ignore();
+        
+        Excercise* loadedExercise = Excercise::load(ifs);
+        if (loadedExercise != nullptr)
+		{
+            newWorkout->excercises[mapKey] = loadedExercise;
+        }
+    }
+
+    return newWorkout;
+}
+
 void Workout::addExcercise(Workout& w, User& u)
 {
 	int id = 1;

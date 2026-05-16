@@ -96,6 +96,37 @@ void Excercise::save(ofstream& ofs)
 }
 
 
+Excercise* Excercise::load(std::ifstream& ifs) {
+    std::string exName;
+
+    if (!std::getline(ifs, exName))
+    {
+        return nullptr;
+    }
+
+    Excercise* newExercise = new Excercise(exName);
+    
+    size_t mapSize = 0;
+    ifs >> mapSize;
+    ifs.ignore();
+
+    for (size_t i = 0; i < mapSize; ++i)
+    {
+        int key = 0;
+        int reps = 0;
+        float weight = 0.0f;
+        
+
+        ifs >> key >> reps >> weight;
+        ifs.ignore();
+        
+        newExercise->sets[key] = new Set(reps, weight);
+    }
+
+    return newExercise;
+}
+
+
 void Excercise::printExcercise()
 {
     cout<<endl<<"--------------------------------------------"<<endl<<"\t\t"<<name<<endl<<"--------------------------------------------"<<endl;

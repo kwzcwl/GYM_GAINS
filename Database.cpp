@@ -13,12 +13,12 @@ Database::~Database()
     users.clear();
 }
 
-/*void Database::load()
+void Database::load()
 {
     std::ifstream ifs(filename);
     if (!ifs.is_open()) return;
 
-    size_t userSize;
+    size_t userSize = 0;
     if (!(ifs >> userSize)) return;
     ifs.ignore();
 
@@ -32,7 +32,7 @@ Database::~Database()
     }
     ifs.close();
 }
-*/
+
 void Database::save()
 {
     std::ofstream ofs(filename);

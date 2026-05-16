@@ -22,7 +22,7 @@ struct User
         ~User();
 
         void save(std::ofstream& ofs);
-        //User* load(std::ifstream& ifs);
+        static User* load(std::ifstream& ifs);
 
 		void addWorkout(Database& db);
         void displayWorkouts();

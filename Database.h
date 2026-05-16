@@ -13,7 +13,7 @@ public:
     Database(std::string dbFilename);
     ~Database();
 
-    //void load();
+    void load();
     void save();
     
     User* authenticate(const std::string& username, const std::string& password);

@@ -21,7 +21,7 @@ struct Workout
 		~Workout();
 		
 		void save(ofstream& ofs);
-		//Workout* load(ifstream& ifs);
+		static Workout* load(ifstream& ifs);
 
 		void addExcercise(Workout& w, User& u);
 		void printWorkout();

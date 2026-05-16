@@ -19,6 +19,8 @@ int main()
 {
 	Database My_Database("Data.txt");
 
+	My_Database.load();
+
 	main_menu(My_Database);
 	
 	My_Database.save();

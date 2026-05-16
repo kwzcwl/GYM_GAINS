@@ -55,6 +55,32 @@ void User::save(ofstream& ofs)
     }
 }
 
+User* User::load(std::ifstream& ifs)
+{
+    std::string un, n, sn, pw;
+    if (!std::getline(ifs, un) || !std::getline(ifs, n) || !std::getline(ifs, sn) || !std::getline(ifs, pw))
+	{
+        return nullptr;
+    }
+
+    User* newUser = new User(n, sn, pw, un);
+    
+    size_t workoutCount = 0;
+    ifs >> workoutCount;
+    ifs.ignore();
+
+    for (size_t i = 0; i < workoutCount; ++i)
+	{
+        Workout* loadedWorkout = Workout::load(ifs);
+        if (loadedWorkout != nullptr)
+		{
+            newUser->workouts.push_back(loadedWorkout);
+        }
+    }
+
+    return newUser;
+}
+
 void User::addWorkout(Database& db)
 {
 	string wname = getSafeInput<string>("Adding Workout, enter workout name:\t");
