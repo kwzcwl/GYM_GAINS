@@ -1,6 +1,6 @@
 # GYM_GAINS
-Application created for people that works out. 
-It will help to track pogress of user by saving gym sessions. 
+Application created for people who work out. 
+Helps tracking gym progress through workouts saving and progress analysis. 
 
 ## Table of contents
 * [Description](#description)
@@ -19,7 +19,8 @@ Saving those session and keep track of progress by being able to open them.
 
 Compile:
 ```bash
-g++ main.cpp -o program
+g++ *.cpp -o gym_app.exe
+gym_app.exe
 ```
 
 ## Example output
