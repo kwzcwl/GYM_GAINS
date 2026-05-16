@@ -4,40 +4,11 @@
 #include <iostream>
 #include <string>
 #include <stdexcept>
-#include <conio.h>
+#include "Inputs.h"
 
 using namespace std;
 
 vector<User> users;
-
-string getHiddenInput(string prompt)
-{
-	cout<<endl<<prompt;
-
-	string input = "";
-	char ch = ' ';
-
-	while ((ch = _getch()) != '\r')
-	{
-        if (ch == '\b')
-		{
-            if (!input.empty())
-			{
-                input.pop_back();
-                cout << "\b \b"; 
-            }
-        } 
-		else
-		{
-            input += ch;
-            cout << '*';
-        }
-    }
-    cout<<endl;
-
-    return input;
-
-}
 
 User* signin()
 {
@@ -58,33 +29,14 @@ User* signin()
     return nullptr;
 }
 
-int getSafeIntInput(string prompt)
-{
-	string userInput;
-	cout<<prompt;
 
-	getline(cin,userInput);
-
-	try
-	{
-		return stoi(userInput);
-	}
-	catch (const invalid_argument& e)
-	{
-		return -1;
-	}
-	catch (const out_of_range& e)
-	{
-		return -2;
-	}
-}
 
 
 void workout_menu(Workout& w,User& user)
 {
 	w.printWorkout();
 
-	switch(getSafeIntInput("[0] - Add Excercise\t[1] - Add Set\t[2] - Finish Workout\t:\t"))
+	switch(getSafeInput<int>("[0] - Add Excercise\t[1] - Add Set\t[2] - Finish Workout\t:\t"))
 	{
 		case 0:
 			w.addExcercise(w,user);
@@ -112,7 +64,7 @@ void exit_program()
 
 void user_menu(User& user)
 {
-	switch(getSafeIntInput("[0] - Add Workout\t[1] - Check workout history\t[2] - Check Progress\t[3] - Sign out\t:\t"))
+	switch(getSafeInput<int>("[0] - Add Workout\t[1] - Check workout history\t[2] - Check Progress\t[3] - Sign out\t:\t"))
 	{
 		case 0:
 			user.addWorkout(user);
@@ -171,7 +123,7 @@ User signup()
 void main_menu()
 {
 
-	switch(getSafeIntInput("[0] - Sign in\t[1] - Sign up\t[2] - Exit app\t:\t"))
+	switch(getSafeInput<int>("[0] - Sign in\t[1] - Sign up\t[2] - Exit app\t:\t"))
 	{
 		case 0:
 		{

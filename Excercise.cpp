@@ -1,5 +1,6 @@
 #include "Excercise.h"
 #include <iostream>
+#include "Inputs.h"
 
 Excercise::Excercise(string n)
 {
@@ -18,14 +19,12 @@ void Excercise::addSet()
         }
     }
     
-    int reps;
-    float weight;
-    int RPE;
-    string comment;
+    
     
     cout<<endl<<"Adding "<<id<<" set of "<<name<<": "<<endl;
     cout<<"-----------------------"<<endl;
-    cout<<"Enter the number of reps: "<<endl;
+
+    /*cout<<"Enter the number of reps: "<<endl;
     cin>>reps;
     cout<<"Enter weight: "<<endl;
     cin>>weight;
@@ -33,7 +32,15 @@ void Excercise::addSet()
     cin>>RPE;
     cout<<"Enter a comment (Blank default): "<<endl;
     cin.ignore();
-    getline(cin,comment);
+    getline(cin,comment);*/
+
+    int reps = getSafeInput<int>("Enter the number of reps:\t");
+    float weight = getSafeInput<float>("Enter weight (kg):\t");
+    int RPE = getSafeInput<int>("Enter RPE (Blank default):\t");
+    string comment = getSafeInput<string>("Enter a comment (Blank default):\t");
+
+    
+
     
     sets.insert({id,Set(reps,weight,RPE,comment)});
 }

@@ -5,7 +5,8 @@
 #include <iomanip>
 #include <sstream>
 #include <ctime>
-#include<ranges>
+#include <ranges>
+#include "Inputs.h"
 
 using namespace std;
 
@@ -43,9 +44,11 @@ User::User(string n,string sn,string passwd,string un)
 
 void User::addWorkout(User& user)
 {
-	cout<<endl<<"Adding Workout, enter workout name:\t";
+	/*cout<<endl<<"Adding Workout, enter workout name:\t";
 	string wname;
-	getline(cin,wname);
+	getline(cin,wname);*/
+
+	string wname = getSafeInput<string>("Adding Workout, enter workout name:\t");
 
 	workouts.push_back(Workout(wname,getDate()));
 

@@ -1,6 +1,7 @@
 #include "Workout.h"
 #include "User.h"
 #include "Menus.h"
+#include "Inputs.h"
 
 using namespace std;
 
@@ -24,13 +25,15 @@ void Workout::addExcercise(Workout& w, User& u)
 	}
 	
 
-	string name;
+	
 	
 	cout<<endl<<"Adding "<<id<<" excersise"<<endl;
 	cout<<"-----------------------"<<endl;
-	cout<<"Enter the name of excercise: ";
+	/*cout<<"Enter the name of excercise: ";
 	cin.ignore();
-	getline(cin,name);
+	getline(cin,name);*/
+
+	string name = getSafeInput<string>("Enter the name of excercise: ");
 	
 	excercises.insert({id,Excercise(name)});
 
@@ -51,15 +54,12 @@ void Workout::printWorkout()
 
 void Workout::addSet(Workout& w, User& u)
 {
-	cout<<endl<<"For which excercise do you want to add the set?"<<endl;
 	for(auto& ex:excercises)
 	{
 		cout<<ex.first<<"\t-\t"<<ex.second.name<<endl;
 	}
 
-	int input;
-
-	cin>>input;
+	int input = getSafeInput<int>("For which excercise do you want to add the set?\t");
 
 	for(auto& ex:excercises)
 	{
