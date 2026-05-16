@@ -20,6 +20,9 @@ struct Workout
     	Workout(string n,string d);
 		~Workout();
 		
+		void save(ofstream& ofs);
+		//Workout* load(ifstream& ifs);
+
 		void addExcercise(Workout& w, User& u);
 		void printWorkout();
 		void addSet(Workout& w, User& u);

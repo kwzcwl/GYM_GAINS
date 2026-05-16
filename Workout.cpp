@@ -2,6 +2,7 @@
 #include "User.h"
 #include "Menus.h"
 #include "Inputs.h"
+#include <fstream>
 
 using namespace std;
 
@@ -19,6 +20,17 @@ Workout::~Workout()
         delete e.second;
     }
     excercises.clear();
+}
+
+void Workout::save(ofstream& ofs)
+{
+	ofs << name << "\n" << date << "\n";
+    ofs << excercises.size() << "\n";
+    for (const auto& e : excercises)
+	{
+        ofs << e.first << "\n";
+        e.second->save(ofs);
+    }
 }
 
 void Workout::addExcercise(Workout& w, User& u)

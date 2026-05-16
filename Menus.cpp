@@ -29,7 +29,7 @@ User* signin(Database& db)
     return nullptr;
 }
 
-void workout_menu(Workout& w, User& user, Database& db)
+/*void workout_menu(Workout& w, User& user, Database& db)
 {
     w.printWorkout();
 
@@ -52,6 +52,35 @@ void workout_menu(Workout& w, User& user, Database& db)
         default:
             workout_menu(w, user, db);
             break;
+    }
+}*/
+
+void workout_menu(Workout& w, User& user, Database& db)
+{
+    bool in_workout = true;
+
+    while (in_workout)
+    {
+        w.printWorkout();
+
+        switch(getSafeInput<int>("[0] - Add Excercise\t[1] - Add Set\t[2] - Finish Workout\t:\t"))
+        {
+            case 0:
+                w.addExcercise(w, user);
+                break;
+
+            case 1:
+                w.addSet(w, user);
+                break;
+
+            case 2:
+                cout << "\nSaving and finishing workout...\n" << endl;
+                in_workout = false;
+                break;
+
+            default:
+                break;
+        }
     }
 }
 

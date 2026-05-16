@@ -14,7 +14,7 @@ public:
     ~Database();
 
     //void load();
-    //void save() const;
+    void save();
     
     User* authenticate(const std::string& username, const std::string& password);
     void addUser(User* newUser);

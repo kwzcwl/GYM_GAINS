@@ -21,5 +21,7 @@ int main()
 
 	main_menu(My_Database);
 	
+	My_Database.save();
+
 	return 0;	
 }

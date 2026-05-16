@@ -1,6 +1,9 @@
 #include "Excercise.h"
 #include <iostream>
 #include "Inputs.h"
+#include <fstream>
+
+using namespace std;
 
 Excercise::Excercise(string n)
 {
@@ -80,6 +83,18 @@ void Excercise::addSet()
 
     sets[id] = new Set(reps,weight,RPE,comment);
 }
+
+void Excercise::save(ofstream& ofs)
+{
+    ofs<<name<<"\n";
+    ofs<<sets.size()<<"\n";
+
+    for (auto& s : sets)
+    {
+        ofs<<s.first<<" "<<s.second->reps<< " " <<s.second->weight<<" "<<s.second->RPE<<" "<<s.second->comment<<"\n";
+    }
+}
+
 
 void Excercise::printExcercise()
 {

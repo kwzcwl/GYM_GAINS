@@ -17,6 +17,9 @@ struct Excercise
 		Excercise(const Excercise& other);
     	Excercise& operator=(const Excercise& other);
 
+		void save(ofstream& ofs);
+		//static Excercise* load(ifstream& ifs);
+
 		void addSet();
 		void printExcercise();
 };

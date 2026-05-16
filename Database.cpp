@@ -32,8 +32,8 @@ Database::~Database()
     }
     ifs.close();
 }
-
-void Database::save() const
+*/
+void Database::save()
 {
     std::ofstream ofs(filename);
     if (!ofs.is_open()) return;
@@ -44,7 +44,7 @@ void Database::save() const
         u->save(ofs);
     }
     ofs.close();
-}*/
+}
 
 User* Database::authenticate(const std::string& username, const std::string& password) {
     for (User* u : users)

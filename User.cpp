@@ -7,6 +7,7 @@
 #include <ctime>
 #include <ranges>
 #include "Inputs.h"
+#include <fstream>
 
 using namespace std;
 
@@ -32,14 +33,7 @@ User::User(string n,string sn,string passwd,string un)
 	name = n;
 	surname = sn;
 	password = passwd;
-	if(un == " ")
-	{
-		username = un;
-	}
-	else
-	{
-		username = n;
-	}
+	username = un;
 }
 
 User::~User()
@@ -49,6 +43,16 @@ User::~User()
 		delete w;
 	}
 	workouts.clear();
+}
+
+void User::save(ofstream& ofs)
+{
+	ofs << username << "\n" << name << "\n" << surname << "\n" << password << "\n";
+    ofs << workouts.size() << "\n";
+    for (Workout* w : workouts)
+	{
+        w->save(ofs);
+    }
 }
 
 void User::addWorkout(Database& db)
