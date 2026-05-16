@@ -7,6 +7,53 @@ Excercise::Excercise(string n)
     name = n;
 }
 
+Excercise::~Excercise() {
+    for (auto& s : sets)
+    {
+        delete s.second;
+    }
+    sets.clear();
+}
+
+Excercise::Excercise(const Excercise& other)
+{
+    this->name = other.name;
+    
+    for (const auto& pair : other.sets)
+    {
+        if (pair.second != nullptr)
+        {
+            this->sets[pair.first] = new Set(pair.second->reps, pair.second->weight);
+        }
+    }
+}
+
+Excercise& Excercise::operator=(const Excercise& other) {
+    if (this == &other)
+    {
+        return *this;
+    }
+
+    for (auto& pair : this->sets)
+    {
+        delete pair.second;
+    }
+    this->sets.clear();
+
+    this->name = other.name;
+
+    for (const auto& pair : other.sets)
+    {
+        if (pair.second != nullptr)
+        {
+            this->sets[pair.first] = new Set(pair.second->reps, pair.second->weight);
+        }
+    }
+
+    return *this;
+}
+
+
 void Excercise::addSet()
 {
     int id = 1;
@@ -24,16 +71,6 @@ void Excercise::addSet()
     cout<<endl<<"Adding "<<id<<" set of "<<name<<": "<<endl;
     cout<<"-----------------------"<<endl;
 
-    /*cout<<"Enter the number of reps: "<<endl;
-    cin>>reps;
-    cout<<"Enter weight: "<<endl;
-    cin>>weight;
-    cout<<"Enter RPE (Blank default): "<<endl;
-    cin>>RPE;
-    cout<<"Enter a comment (Blank default): "<<endl;
-    cin.ignore();
-    getline(cin,comment);*/
-
     int reps = getSafeInput<int>("Enter the number of reps:\t");
     float weight = getSafeInput<float>("Enter weight (kg):\t");
     int RPE = getSafeInput<int>("Enter RPE (Blank default):\t");
@@ -41,8 +78,7 @@ void Excercise::addSet()
 
     
 
-    
-    sets.insert({id,Set(reps,weight,RPE,comment)});
+    sets[id] = new Set(reps,weight,RPE,comment);
 }
 
 void Excercise::printExcercise()
@@ -52,9 +88,12 @@ void Excercise::printExcercise()
     
     for(auto& set : sets)
     {
-        cout<<set.first<<"\t";
+        if(set.second != nullptr)
+        {
+            cout<<set.first<<"\t";
         
-        set.second.printSet();
+            set.second->printSet();
+        }
     }
 }
     	

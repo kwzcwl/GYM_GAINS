@@ -24,14 +24,8 @@ void Workout::addExcercise(Workout& w, User& u)
 		}
 	}
 	
-
-	
-	
 	cout<<endl<<"Adding "<<id<<" excersise"<<endl;
 	cout<<"-----------------------"<<endl;
-	/*cout<<"Enter the name of excercise: ";
-	cin.ignore();
-	getline(cin,name);*/
 
 	string name = getSafeInput<string>("Enter the name of excercise: ");
 	
