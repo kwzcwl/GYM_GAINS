@@ -20,8 +20,6 @@ Saving those session and keeping track of progress by being able to open them.
 * Creating workouts, adding exercises and sets
 * Viewign workout history
 * Saving data upon exit and loading upon opening the app
-
-## Planned Features
 * Viewing detailed workout summary after complietion
 * Analysing gym progress
 * Removing workouts, excercises and sets
