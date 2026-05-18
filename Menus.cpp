@@ -81,9 +81,9 @@ void user_menu(User& user, Database& db)
                 break;
 
             case 2:
-                cout << "not yet implemented\n\n";
-                break;
-
+                user.analyzeProgress();
+    		break;
+                
             case 3:
                 cout << "Signing out...\n\n";
                 in_profile = false;

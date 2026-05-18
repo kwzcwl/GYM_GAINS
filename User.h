@@ -27,4 +27,5 @@ struct User
 		void addWorkout(Database& db);
         void displayWorkouts();
         bool checkPassword(string inPasswd);
+	void analyzeProgress();
 };
