@@ -6,26 +6,25 @@
 
 using namespace std;
 
-// Abstrakcyjna klasa bazowa
+
 class Excercise
 {
 public:
     string name;
 
     Excercise(string n) : name(n) {}
-    virtual ~Excercise() = default; // Wirtualny destruktor to podstawa przy polimorfizmie
+    virtual ~Excercise() = default; 
 
-    // Czysto wirtualne metody (każda podklasa musi je zaimplementować)
+    
     virtual void save(ofstream& ofs) = 0;
-    virtual void addSet() = 0; // W przypadku cardio to może być po prostu edycja parametrów
+    virtual void addSet() = 0; 
     virtual void printExcercise() = 0;
-    virtual string getType() const = 0; // Przyda się do zapisu/odczytu z pliku
+    virtual string getType() const = 0; 
 
-    // Metoda fabrykująca
     static Excercise* load(ifstream& ifs);
 };
 
-// Podklasa dla ćwiczeń siłowych (korzysta z Twojej klasy Set)
+
 class StrengthExcercise : public Excercise
 {
 public:
@@ -40,12 +39,12 @@ public:
     string getType() const override { return "Strength"; }
 };
 
-// Podklasa dla Cardio
+
 class Cardio : public Excercise
 {
 public:
-    float distance; // w km
-    int duration; // w minutach
+    float distance; 
+    int duration; 
 
     Cardio(string n, float dist = 0.0f, int dur = 0);
     ~Cardio() override = default;

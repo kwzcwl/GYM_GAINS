@@ -62,3 +62,55 @@ void Cardio::printExcercise() {
     cout << "\n--- CARDIO: " << name << " ---\n";
     cout << "Distance: " << distance << " km \t Duration: " << duration << " min\n";
 }
+
+Excercise* Excercise::load(std::ifstream& ifs) {
+    std::string type;
+    
+    
+    if (!std::getline(ifs, type)) {
+        return nullptr;
+    }
+
+    
+    std::string exName;
+    if (!std::getline(ifs, exName)) {
+        return nullptr;
+    }
+
+    
+    if (type == "Strength") {
+        StrengthExcercise* newExercise = new StrengthExcercise(exName);
+        
+        size_t mapSize = 0;
+        ifs >> mapSize;
+        ifs.ignore(); 
+
+        for (size_t i = 0; i < mapSize; ++i) {
+            int key = 0, reps = 0, rpe = 0;
+            float weight = 0.0f;
+            std::string comment = "";
+            
+            
+            ifs >> key >> reps >> weight >> rpe;
+            
+            
+            std::getline(ifs >> std::ws, comment);
+            
+            newExercise->sets[key] = new Set(reps, weight, rpe, comment);
+        }
+        return newExercise;
+    } 
+    else if (type == "Cardio") {
+        float distance = 0.0f;
+        int duration = 0;
+        
+        
+        ifs >> distance >> duration;
+        ifs.ignore(); 
+        
+        return new Cardio(exName, distance, duration);
+    }
+
+    
+    return nullptr;
+}

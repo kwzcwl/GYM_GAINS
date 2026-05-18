@@ -68,22 +68,40 @@ void Workout::addExcercise(Workout& w, User& u)
 {
 	int id = 1;
 	
+	
 	for(auto& ex : excercises)
 	{
-		if(ex.first==id)
+		if(ex.first == id)
 		{
 			id++;
 		}
 	}
 	
-	cout<<endl<<"Adding "<<id<<" excersise"<<endl;
-	cout<<"-----------------------"<<endl;
+	cout << endl << "Adding " << id << " excersise" << endl;
+	cout << "-----------------------" << endl;
 
 	string name = getSafeInput<string>("Enter the name of excercise: ");
 	
-	excercises[id] = new Excercise(name);
-}
 
+    int type = getSafeInput<int>("Select excercise type [0] Strength, [1] Cardio:\t");
+
+    if (type == 0)
+    {
+        
+        excercises[id] = new StrengthExcercise(name);
+    }
+    else if (type == 1)
+    {
+        
+        excercises[id] = new Cardio(name);
+    }
+    else
+    {
+        
+        cout << "Invalid choice. Defaulting to Strength Excercise." << endl;
+        excercises[id] = new StrengthExcercise(name);
+    }
+}
 void Workout::printWorkout()
 {
 	cout<<"\033[2J\033[1;1H";

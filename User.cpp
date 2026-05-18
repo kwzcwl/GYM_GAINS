@@ -110,7 +110,7 @@ bool User::checkPassword(string inPasswd)
 
 void User::analyzeProgress()
 {
-    cout << "\033[2J\033[1;1H"; // Wyczyść ekran
+    cout << "\033[2J\033[1;1H";
     cout << "========= PROGRESS ANALYSIS =========" << endl;
 
     if (workouts.empty())
@@ -119,7 +119,7 @@ void User::analyzeProgress()
         return;
     }
 
-    // 1. any_of: Sprawdzenie, czy wykonano jakikolwiek długi trening (np. więcej niż 2 ćwiczenia)
+    
     bool hasLongWorkout = std::any_of(workouts.begin(), workouts.end(), [](Workout* w) {
         return w->excercises.size() > 2;
     });
@@ -130,37 +130,36 @@ void User::analyzeProgress()
         cout << "- Keep pushing! Try adding more exercises to your workouts." << endl;
     }
 
-    // 2. count_if: Zliczanie treningów z bieżącego miesiąca (prosty przykład zliczania wpisów)
+    
     int totalWorkouts = std::count_if(workouts.begin(), workouts.end(), [](Workout* w) {
-        return w != nullptr; // W realnym scenariuszu tutaj sprawdziłbyś datę w w->date
+        return w != nullptr; 
     });
     cout << "- Total valid workout sessions saved: " << totalWorkouts << endl;
 
-    // 3. for_each: Szukanie rekordów (PR) dla konkretnego ćwiczenia i zliczanie serii
+    
     cout << "\n-------------------------------------" << endl;
     string targetExcercise = getSafeInput<string>("Enter a Strength Excercise name to check PR and sets:\t");
     
     float personalRecord = 0.0f;
     int totalSetsDone = 0;
 
-    // Iterujemy po wszystkich treningach...
+    
     std::for_each(workouts.begin(), workouts.end(), [&](Workout* w) {
         
-        // Iterujemy po ćwiczeniach w ramach danego treningu...
+        
         for (const auto& exPair : w->excercises) {
             if (exPair.second->name == targetExcercise) {
                 
-                // Próbujemy rzutować (dynamic_cast) wskaźnik na typ siłowy, bo tylko on ma ciężar.
-                // Upewnij się, że klasa Excercise jest polimorficzna (wirtualny destruktor).
+                
                 StrengthExcercise* se = dynamic_cast<StrengthExcercise*>(exPair.second);
                 
                 if (se != nullptr) {
-                    // Zliczamy wszystkie serie przy użyciu count_if
+                    
                     totalSetsDone += std::count_if(se->sets.begin(), se->sets.end(), [](const auto& setPair) {
-                        return setPair.second->weight >= 0.0f; // Liczymy każdą prawidłową serię
+                        return setPair.second->weight >= 0.0f; 
                     });
 
-                    // Szukamy maksymalnego ciężaru przy użyciu for_each
+                    
                     std::for_each(se->sets.begin(), se->sets.end(), [&](const auto& setPair) {
                         if (setPair.second->weight > personalRecord) {
                             personalRecord = setPair.second->weight;
