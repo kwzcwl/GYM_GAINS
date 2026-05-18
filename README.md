@@ -5,7 +5,6 @@ Helps tracking gym progress through workouts saving and progress analysis.
 ## Table of contents
 * [Description](#description)
 * [Current Features](#current-features)
-* [Planned Features](#planned-features)
 * [How to Run](#how-to-run)
 * [Example Output](#example-output)
 * [Authors](#authors)
