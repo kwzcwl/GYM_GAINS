@@ -195,7 +195,7 @@ void User::removeWorkout()
 
 
     if (id >= 0 && id < workouts.size()) {
-        delete workouts[id]; // Usuwamy obiekt z pamięci
+        delete workouts[id];
         workouts.erase(workouts.begin() + id); 
         cout << "Workout removed successfully!" << endl;
     } else {
