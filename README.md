@@ -41,7 +41,9 @@ gym_app.exe
 
 ## Example output
 
-![ScreenShot](/screenshots/example.png)
+![ScreenShot](/screenshots/ss1.png)
+![ScreenShot](/screenshots/ss2.png)
+![ScreenShot](/screenshots/ss3.png)
 
 
 ## Authors
