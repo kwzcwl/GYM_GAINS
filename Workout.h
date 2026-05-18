@@ -26,4 +26,7 @@ struct Workout
 		void addExcercise(Workout& w, User& u);
 		void printWorkout();
 		void addSet(Workout& w, User& u);
+		void removeExcercise();
+    		void editSetFromWorkout();
+    		void removeSetFromWorkout();
 };

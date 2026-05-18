@@ -132,3 +132,60 @@ void Workout::addSet(Workout& w, User& u)
 		}
 	}
 }
+
+void Workout::removeExcercise()
+{
+    if (excercises.empty()) {
+        cout << "No excercises to remove." << endl;
+        return;
+    }
+
+    for (auto& ex : excercises) {
+        cout << ex.first << "\t-\t" << ex.second->name << endl;
+    }
+
+    int input = getSafeInput<int>("Enter the ID of the excercise to remove:\t");
+
+    auto it = excercises.find(input);
+    if (it != excercises.end()) {
+        delete it->second; 
+        excercises.erase(it); 
+        cout << "Excercise removed successfully!" << endl;
+    } else {
+        cout << "Invalid ID." << endl;
+    }
+}
+
+void Workout::editSetFromWorkout()
+{
+    if (excercises.empty()) return;
+
+    for (auto& ex : excercises) {
+        cout << ex.first << "\t-\t" << ex.second->name << endl;
+    }
+
+    int input = getSafeInput<int>("For which excercise do you want to edit a set?\t");
+
+    if (excercises.find(input) != excercises.end()) {
+        excercises[input]->editSet();
+    } else {
+        cout << "Invalid ID." << endl;
+    }
+}
+
+void Workout::removeSetFromWorkout()
+{
+    if (excercises.empty()) return;
+
+    for (auto& ex : excercises) {
+        cout << ex.first << "\t-\t" << ex.second->name << endl;
+    }
+
+    int input = getSafeInput<int>("For which excercise do you want to remove a set?\t");
+
+    if (excercises.find(input) != excercises.end()) {
+        excercises[input]->removeSet();
+    } else {
+        cout << "Invalid ID." << endl;
+    }
+}

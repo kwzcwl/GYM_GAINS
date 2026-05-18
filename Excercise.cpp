@@ -4,7 +4,6 @@
 
 using namespace std;
 
-// --- STRENGTH EXCERCISE ---
 StrengthExcercise::StrengthExcercise(string n) : Excercise(n) {}
 
 StrengthExcercise::~StrengthExcercise() {
@@ -45,7 +44,6 @@ void StrengthExcercise::printExcercise() {
     }
 }
 
-// --- CARDIO ---
 Cardio::Cardio(string n, float dist, int dur) : Excercise(n), distance(dist), duration(dur) {}
 
 void Cardio::addSet() {
@@ -113,4 +111,62 @@ Excercise* Excercise::load(std::ifstream& ifs) {
 
     
     return nullptr;
+}
+
+
+
+void StrengthExcercise::editSet()
+{
+    if (sets.empty()) {
+        cout << "No sets to edit." << endl;
+        return;
+    }
+    
+    printExcercise();
+    int id = getSafeInput<int>("Enter Set ID to edit:\t");
+    
+    if (sets.find(id) != sets.end()) {
+        cout << "--- Editing Set " << id << " ---" << endl;
+        sets[id]->reps = getSafeInput<int>("New reps:\t");
+        sets[id]->weight = getSafeInput<float>("New weight (kg):\t");
+        sets[id]->RPE = getSafeInput<int>("New RPE:\t");
+        sets[id]->comment = getSafeInput<string>("New comment:\t");
+        cout << "Set updated successfully!" << endl;
+    } else {
+        cout << "Set ID not found." << endl;
+    }
+}
+
+void StrengthExcercise::removeSet()
+{
+    if (sets.empty()) {
+        cout << "No sets to remove." << endl;
+        return;
+    }
+    
+    printExcercise();
+    int id = getSafeInput<int>("Enter Set ID to remove:\t");
+    
+    if (sets.find(id) != sets.end()) {
+        delete sets[id]; 
+        sets.erase(id);  
+        cout << "Set removed successfully!" << endl;
+    } else {
+        cout << "Set ID not found." << endl;
+    }
+}
+
+
+void Cardio::editSet()
+{
+    
+    cout << "\nEditing Cardio: " << name << "\n";
+    addSet(); 
+}
+
+void Cardio::removeSet()
+{
+    distance = 0.0f;
+    duration = 0;
+    cout << "Cardio parameters reset to 0." << endl;
 }

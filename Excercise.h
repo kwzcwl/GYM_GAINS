@@ -20,7 +20,8 @@ public:
     virtual void addSet() = 0; 
     virtual void printExcercise() = 0;
     virtual string getType() const = 0; 
-
+    virtual void editSet() = 0;
+    virtual void removeSet() = 0;
     static Excercise* load(ifstream& ifs);
 };
 
@@ -37,6 +38,8 @@ public:
     void addSet() override;
     void printExcercise() override;
     string getType() const override { return "Strength"; }
+    void editSet() override;
+    void removeSet() override;
 };
 
 
@@ -53,4 +56,6 @@ public:
     void addSet() override;
     void printExcercise() override;
     string getType() const override { return "Cardio"; }
+    void editSet() override;
+    void removeSet() override;
 };

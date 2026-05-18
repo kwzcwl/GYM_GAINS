@@ -28,4 +28,5 @@ struct User
         void displayWorkouts();
         bool checkPassword(string inPasswd);
 	void analyzeProgress();
+	void removeWorkout();
 };

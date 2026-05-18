@@ -37,22 +37,30 @@ void workout_menu(Workout& w, User& user, Database& db)
     while (in_workout)
     {
         w.printWorkout();
+        
+        string prompt = "[0] Add Excercise\t[1] Add Set\t[2] Edit Set\t[3] Remove Set\t[4] Remove Excercise\t[5] Finish Workout\nChoice:\t";
 
-        switch(getSafeInput<int>("[0] - Add Excercise\t[1] - Add Set\t[2] - Finish Workout\t:\t"))
+        switch(getSafeInput<int>(prompt))
         {
             case 0:
                 w.addExcercise(w, user);
                 break;
-
             case 1:
                 w.addSet(w, user);
                 break;
-
             case 2:
+                w.editSetFromWorkout(); 
+                break;
+            case 3:
+                w.removeSetFromWorkout(); 
+                break;
+            case 4:
+                w.removeExcercise(); 
+                break;
+            case 5:
                 cout << "\nSaving and finishing workout...\n" << endl;
                 in_workout = false;
                 break;
-
             default:
                 break;
         }
@@ -70,31 +78,29 @@ void user_menu(User& user, Database& db)
 
     while (in_profile)
     {
-        switch(getSafeInput<int>("[0] - Add Workout\t[1] - Check workout history\t[2] - Check Progress\t[3] - Sign out\t:\t"))
+        switch(getSafeInput<int>("[0] - Add Workout\t[1] - Check history\t[2] - Check Progress\t[3] - Remove Workout\t[4] - Sign out\t:\t"))
         {
             case 0:
                 user.addWorkout(db); 
                 break;
-
             case 1:
                 user.displayWorkouts();
                 break;
-
             case 2:
                 user.analyzeProgress();
-    		break;
-                
+                break;
             case 3:
+                user.removeWorkout(); 
+                break;
+            case 4:
                 cout << "Signing out...\n\n";
                 in_profile = false;
                 break; 
-
             default:
                 break;
         }
     }
 }
-
 User* signup()
 {
     cout << endl << "Name:\t";

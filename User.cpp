@@ -180,3 +180,25 @@ void User::analyzeProgress()
     
     cout << "=====================================\n\n";
 }
+
+
+void User::removeWorkout()
+{
+    if (workouts.empty()) {
+        cout << "No workouts available to remove." << endl;
+        return;
+    }
+
+    displayWorkouts();
+    
+    int id = getSafeInput<int>("Enter the ID of the workout to remove:\t");
+
+
+    if (id >= 0 && id < workouts.size()) {
+        delete workouts[id]; // Usuwamy obiekt z pamięci
+        workouts.erase(workouts.begin() + id); 
+        cout << "Workout removed successfully!" << endl;
+    } else {
+        cout << "Invalid ID." << endl;
+    }
+}
