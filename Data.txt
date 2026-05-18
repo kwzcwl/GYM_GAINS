@@ -1,1 +1,26 @@
-
+1
+Dino
+Dino
+Albino
+ELO
+2
+KLATA
+18.05.2026
+2
+1
+Strength
+Bench Press
+2
+1 1 82.5 9 
+2 5 65 8 
+2
+Cardio
+Run
+5 28
+Run
+18.05.2026
+1
+1
+Cardio
+Run
+21 125
