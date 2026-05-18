@@ -2,24 +2,51 @@
 #include <string>
 #include <map>
 #include "Set.h"
+#include <fstream>
 
 using namespace std;
 
-struct Excercise
+class Excercise
 {
-    public:
-		string name;
-        map<int,Set*> sets;
+public:
+    string name;
 
-    	Excercise(string n);
+    Excercise(string n) : name(n) {}
+    virtual ~Excercise() = default; 
 
-		~Excercise();
-		Excercise(const Excercise& other);
-    	Excercise& operator=(const Excercise& other);
+    virtual void save(ofstream& ofs) = 0;
+    virtual void addSet() = 0; 
+    virtual void printExcercise() = 0;
+    virtual string getType() const = 0; 
 
-		void save(ofstream& ofs);
-		static Excercise* load(ifstream& ifs);
+    static Excercise* load(ifstream& ifs);
+};
 
-		void addSet();
-		void printExcercise();
+class StrengthExcercise : public Excercise
+{
+public:
+    map<int, Set*> sets;
+
+    StrengthExcercise(string n);
+    ~StrengthExcercise() override;
+
+    void save(ofstream& ofs) override;
+    void addSet() override;
+    void printExcercise() override;
+    string getType() const override { return "Strength"; }
+};
+
+class Cardio : public Excercise
+{
+public:
+    float distance; 
+    int duration; 
+
+    Cardio(string n, float dist = 0.0f, int dur = 0);
+    ~Cardio() override = default;
+
+    void save(ofstream& ofs) override;
+    void addSet() override;
+    void printExcercise() override;
+    string getType() const override { return "Cardio"; }
 };
